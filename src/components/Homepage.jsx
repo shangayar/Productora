@@ -163,7 +163,7 @@ function Homepage(){
                         <Row className='spaceBetween'>
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="../../src/img/paramount.svg"></img>
+                                    <img src="./src/img/paramount.svg"></img>
                                 </div>
                             </Col>
                             <Col className="centerHorizontal">
@@ -180,7 +180,7 @@ function Homepage(){
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="../img/sony.svg"></img>
+                                    <img src="./img/sony.svg"></img>
                                 </div>
                             </Col>
 
