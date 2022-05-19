@@ -180,13 +180,13 @@ function Homepage(){
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="../src/img/sony.svg"></img>
+                                    <img src="img/sony.svg"></img>
                                 </div>
                             </Col>
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="../src/img/paramount.svg"></img>
+                                    <img src="paramount.svg"></img>
                                 </div>
                             </Col>
                         </Row>
