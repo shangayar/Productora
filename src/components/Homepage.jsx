@@ -106,7 +106,7 @@ function Homepage(){
             <section className='ctn_page'>
                 <article>
                     <div>
-                        <img src="src/img/logoProductora.svg" alt="logo de la productora" />
+                        <img src="../src/img/logoProductora.svg" alt="logo de la productora" />
                     </div>
                     <div>
                         <p className='subtitulo'>Nosotros</p>
@@ -163,30 +163,30 @@ function Homepage(){
                         <Row className='spaceBetween'>
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="src/img/paramount.svg"></img>
+                                    <img src="../src/img/paramount.svg"></img>
                                 </div>
                             </Col>
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="src/img/sony.svg"></img>
-                                </div>
-                            </Col>
-
-                            <Col className="centerHorizontal">
-                                <div className="confian">
-                                    <img src="src/img/warner.svg"></img>
+                                    <img src="../src/img/sony.svg"></img>
                                 </div>
                             </Col>
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="src/img/sony.svg"></img>
+                                    <img src="assets/warner.svg"></img>
                                 </div>
                             </Col>
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="src/img/paramount.svg"></img>
+                                    <img src="../src/img/sony.svg"></img>
+                                </div>
+                            </Col>
+
+                            <Col className="centerHorizontal">
+                                <div className="confian">
+                                    <img src="../src/img/paramount.svg"></img>
                                 </div>
                             </Col>
                         </Row>

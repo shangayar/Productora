@@ -31,7 +31,7 @@ function Navbar(){
                 <nav className='navBar'>
                     <div>
                         <Link to="/"  id='navbarLogo'>
-                            <div><img src="src/img/logoProductora.svg" alt=""/></div> 
+                            <div><img src="../src/img/logoProductora.svg" alt=""/></div> 
                             <p>React #22014</p>
                         </Link>
                     </div>
