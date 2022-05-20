@@ -12,6 +12,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Switch,
   Link
 } from "react-router-dom";
 
@@ -50,7 +51,7 @@ function Navbar(){
                         </div>         
                     </div>
                 </nav>
-                <Routes>
+                <Switch>
                     <Route path="/" element={<Homepage></Homepage>}>
                     </Route>
                     <Route path="/Nosotros" element={<Nosotros></Nosotros>}>
@@ -61,7 +62,7 @@ function Navbar(){
                     </Route>
                     <Route path="/IniciarSesion" element={<Login />}>
                     </Route>
-                </Routes>
+                </Switch>
             </Router>
         </div>
     )
