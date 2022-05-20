@@ -23,7 +23,7 @@ function Footer(){
                     <ul>
                         <li><a href="/">Inicio</a></li>
                         <li><a href="/Nosotros">Nosotros</a></li>
-                        <li><a href="/Buscar">Búsqueda</a></li>
+                        <li><Link to="/Buscar"><button id="btnSearch">Búsqueda</button></Link></li>
                     </ul>
                 </section>
             </footer>
