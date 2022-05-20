@@ -1,7 +1,7 @@
 import React from 'react';
 import Homepage from '../components/Homepage'
-import Login from './Login'
-import SearchPage from './SearchPage'
+import Login from '../components/Login'
+import SearchPage from '../components/SearchPage'
 import Formulario from './FormularioRegistro'
 import Nosotros from './Nosotros'
 import { AiFillInstagram } from "react-icons/ai";
