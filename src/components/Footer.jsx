@@ -22,12 +22,8 @@ function Footer(){
                 <section>
                     <ul>
                         <li><a href="/">Inicio</a></li>
-                        <li>
-                            <Route path="/Nosotros" element={<Nosotros></Nosotros>}>
-                            </Route>
-                            Nosotros
-                        </li>
-                        <li><a path="/Buscar">Búsqueda</a></li>
+                        <li><a href="/Nosotros">Nosotros</a></li>
+                        <li><a href="/Buscar">Búsqueda</a></li>
                     </ul>
                 </section>
             </footer>
