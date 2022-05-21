@@ -1,6 +1,7 @@
 import React from 'react';
 import Homepage from '../components/Homepage'
 import Login from '../components/Login'
+
 import SearchPage from '../components/SearchPage'
 import Formulario from './FormularioRegistro'
 import Nosotros from './Nosotros'
@@ -21,6 +22,33 @@ function openMenu(){
     navBar__hamburger.classList.toggle("active");
     navBar__menu.classList.toggle("active");
 };
+
+function Footer(){
+    return(
+        <div>
+            <footer>
+                <section>
+                    <div>
+                        <p>Grupo 4 - React #22014</p>
+                    </div>
+                    <ul>
+                        <li>Seguinos</li>
+                        <li><a href="https://www.instagram.com/" target='_blank'><AiFillInstagram style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                        <li><a href="https://www.youtube.com/" target='_blank'><ImYoutube style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                        <li><a href="https://www.facebook.com/" target='_blank'><FaFacebookSquare style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                    </ul>
+                </section>                
+                <section>
+                    <ul>
+                        <li><Link to="/">Inicio</Link></li>
+                        <li><Link to="/Nosotros">Nosotros</Link></li>
+                        <li><Link to="/Buscar">Búsqueda</Link></li>
+                    </ul>
+                </section>
+            </footer>
+        </div>
+    )
+}
 
 function Navbar(){
     //Hamburger menu for small devices
@@ -62,6 +90,7 @@ function Navbar(){
                     <Route path="/IniciarSesion" element={<Login />}>
                     </Route>
                 </Routes>
+                <Footer></Footer>
             </Router>
         </div>
     )

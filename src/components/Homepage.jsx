@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Footer from './Footer'
 
 import '../styles/homepage.css';
 import { Card, Container, Col, Row} from 'react-bootstrap'
@@ -174,26 +173,25 @@ function Homepage(){
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="assets/img/warner.svg"></img>
+                                    <img src="./src/img/warner.svg"></img>
                                 </div>
                             </Col>
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="assets/img/sony.svg"></img>
+                                    <img src="./src/img/sony.svg"></img>
                                 </div>
                             </Col>
 
                             <Col className="centerHorizontal">
                                 <div className="confian">
-                                    <img src="assets/media/paramount.svg"></img>
+                                    <img src="./src/img/paramount.svg"></img>
                                 </div>
                             </Col>
                         </Row>
                     </div>
                 </article>
             </section>
-            <Footer></Footer>
         </div>
     )
 }
