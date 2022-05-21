@@ -29,7 +29,7 @@
     left: 20px;
     padding: 0%;
 } #banner > div:not(:first-of-type) > p {
-    font-family: 'Gugi', cursive;
+    font-family: 'MuseoModerno', cursive;
     padding: 0%;
     margin: 0%;
 } .ctn_page {
@@ -56,6 +56,8 @@
     justify-content: space-between;
     align-items: center;
     align-content: center;
+    max-width: 100%;
+    
 } .chart {
     display: flex;
     flex-direction: column;
@@ -136,6 +138,19 @@
 } .confian img{
     width: 100%;
 } 
+#containerCards{
+    overflow: scroll;
+    width: 100%;
+
+} #containerCards::-webkit-scrollbar {
+    height: 5px;
+    width: 100%;
+} #containerCards::-webkit-scrollbar-track {
+    border-radius: 10px;
+} #containerCards::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--primary_color); 
+}
 
 @media screen and (max-width: 820px) {
     .ctn_page > article:first-of-type > div:first-of-type {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import '../styles/userProfile.css';
-import Navbar from './Navbar';
 import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
 
@@ -91,7 +90,6 @@ export default function Profile() {
 
     return (
         <div>
-            <Navbar></Navbar>
             <div className='container blanco' id='perfilSection'>
                 <section className='col-sm-12 col-md-5 col-lg-6'>
                     <p className='encabezadoSize blanco capitalize'>{userName} {userLastName}</p>

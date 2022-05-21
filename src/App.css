@@ -2,7 +2,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: white;
 }
 body {
@@ -54,6 +54,7 @@ nav {
   display: flex;
   align-items: center;
   flex-direction: row;
+  text-decoration: none;
 } #navbarLogo > div{
   padding: 0%;
   margin: 0%;
@@ -66,7 +67,7 @@ nav {
   height: 40px;
 } #navbarLogo > p {
   display: inline-block;
-  font-family: 'Gugi', cursive;
+  font-family: 'MuseoModerno', cursive;
   font-size: 1rem;
   padding: 0%;
   margin: 0px 0px 0px 10px;

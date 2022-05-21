@@ -1,10 +1,10 @@
 import React from 'react';
 import Homepage from '../components/Homepage'
 import Login from '../components/Login'
-
 import SearchPage from '../components/SearchPage'
-import Formulario from './FormularioRegistro'
-import Nosotros from './Nosotros'
+import UserProfile from '../components/UserProfile'
+import Formulario from '../components/FormularioRegistro'
+import Nosotros from '../components/Nosotros'
 import { AiFillInstagram } from "react-icons/ai";
 import {ImYoutube} from "react-icons/im";
 import {FaFacebookSquare} from "react-icons/fa";
@@ -43,6 +43,7 @@ function Footer(){
                         <li><Link to="/">Inicio</Link></li>
                         <li><Link to="/Nosotros">Nosotros</Link></li>
                         <li><Link to="/Buscar">Búsqueda</Link></li>
+                        <li><Link to="/Perfil">Perfil</Link></li>
                     </ul>
                 </section>
             </footer>
@@ -88,6 +89,8 @@ function Navbar(){
                     <Route path="/Buscar" element={<SearchPage />}>
                     </Route>
                     <Route path="/IniciarSesion" element={<Login />}>
+                    </Route>
+                    <Route path="/Perfil" element={<UserProfile />}>
                     </Route>
                 </Routes>
                 <Footer></Footer>
