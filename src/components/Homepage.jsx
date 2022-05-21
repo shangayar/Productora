@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Nosotros from './Nosotros'
+import Footer from './Footer'
 
 import '../styles/homepage.css';
 import { Card, Container, Col, Row} from 'react-bootstrap'
@@ -193,6 +193,7 @@ function Homepage(){
                     </div>
                 </article>
             </section>
+            <Footer></Footer>
         </div>
     )
 }

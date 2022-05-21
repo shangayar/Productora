@@ -10,9 +10,8 @@ import {FaFacebookSquare} from "react-icons/fa";
 import {FaSearch} from "react-icons/fa";
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
-  Switch,
+  Routes,
   Link
 } from "react-router-dom";
 
@@ -51,7 +50,7 @@ function Navbar(){
                         </div>         
                     </div>
                 </nav>
-                <Switch>
+                <Routes>
                     <Route path="/" element={<Homepage></Homepage>}>
                     </Route>
                     <Route path="/Nosotros" element={<Nosotros></Nosotros>}>
@@ -62,7 +61,7 @@ function Navbar(){
                     </Route>
                     <Route path="/IniciarSesion" element={<Login />}>
                     </Route>
-                </Switch>
+                </Routes>
             </Router>
         </div>
     )
