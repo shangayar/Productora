@@ -110,7 +110,7 @@ function Homepage(){
                     <div>
                         <p className='subtitulo'>Nosotros</p>
                         <p>Especialistas en producciones audiovisuales y storytelling. Trabajamos con los mejores productores para traerte cine de calidad. Traemos prestigio al cine Argentino.</p>
-                        <p>Leé más sobre nosotros <a href='/Nosotros'>acá</a></p>
+                        <p>Leé más sobre nosotros<Link to="/Nosotros">ACA</Link> <a href='/Nosotros'>acá</a></p>
                     </div>
                 </article>
                 <article>
