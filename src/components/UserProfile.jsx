@@ -132,10 +132,6 @@ export default function Profile() {
                                 <label htmlFor="email">Correo electrónico</label>
                                 <input type="email" autoComplete='email' placeholder={userEmail} onChange={userEmailSeleccionado} name="email" />
                             </div>
-                            <div>
-                                <label htmlFor="apellido">Confirmar correo electrónico</label>
-                                <input type="email" autoComplete='off' placeholder={userEmail} name="apellido" />
-                            </div>
                         </fieldset>
                         <button className='btnVioletaRedondo'>Guardar cambios</button>
                     </form>

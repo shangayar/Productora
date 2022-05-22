@@ -142,7 +142,6 @@
 #containerCards{
     overflow: scroll;
     width: 100%;
-
 } #containerCards::-webkit-scrollbar {
     height: 5px;
     width: 100%;

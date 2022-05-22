@@ -15,8 +15,16 @@ body {
   --black_unactive: #5E5E5E;
   --red: #F24848;
   --black: #121212;
-
 }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 100%;
+} ::-webkit-scrollbar-track {
+  border-radius: 10px;
+} ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--primary_color); 
+} 
 .blanco {
   color: var(--white);
 } .encabezadoSize {
