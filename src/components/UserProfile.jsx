@@ -89,7 +89,7 @@ export default function Profile() {
     }
 
     return (
-        <div>
+        <div id='#userProfile_body'>
             <div className='container blanco' id='perfilSection'>
                 <section className='col-sm-12 col-md-5 col-lg-6'>
                     <p className='encabezadoSize blanco capitalize'>{userName} {userLastName}</p>

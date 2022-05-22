@@ -1,6 +1,6 @@
 function Formulario() {
   return (
-    <div className="container-login">
+    <div className="container-login" id="registro">
       <p>
         Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>
