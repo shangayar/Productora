@@ -8,7 +8,7 @@ export default function Profile() {
     let [userName, setName] = useState('nombre');
     let [userLastName, setLastName] = useState('apellido');
     let [userEmail, setEmail] = useState('nombre.apellido@gmail.com');
-    let [userPic, setPic] = useState('');
+    let [userPic, setPic] = useState('nonUser.png');
 
     const userNameSeleccionado = function(e){
         setName(e.target.value);
@@ -19,16 +19,27 @@ export default function Profile() {
     const userEmailSeleccionado = function(e){
         setEmail(e.target.value);
     };
+
+        /*Upload and delete user pic   
+        const FileUploader = () => {
+            const handleFileInput = () => {}
+        
+            return (
+                <div className="file-uploader">
+                    <input type="file" onChange={handleFileInput} ></input>
+                </div>
+            )
+        }*/
     function userPicSeleccionado (e){
         const imgPath = e.target.value.split(/[\\/]/);
         console.log(imgPath);
         const imgName = imgPath.at(-1)
         setPic(imgName);
         displayPicModal();
-    };
+    }; 
     function userPicEliminado(){
-        setPic('nonUser.png');
         displaylDeletePicModal();
+        setPic('nonUser.png');
     };
 
     /*Modal / overlay*/
