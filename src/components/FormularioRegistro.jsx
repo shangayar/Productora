@@ -2,9 +2,9 @@ function Formulario() {
 
 
   return (
-    <div className="container-login">
+    <div className="container-login" id="registro">
       <p>
-        Crea una cuenta en Nombre_Empresa. Es gratis y solo te toma un minuto
+        Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>
       <form>
         <label className="font-weight-bold" /> Nombre para mostrar

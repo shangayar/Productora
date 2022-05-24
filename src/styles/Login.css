@@ -10,7 +10,7 @@
     justify-content: center;
     margin-top:30vh;  
 }
-form{
+#login form, #registro form{
     align-items: left;
     border: 2px solid;
     border-radius:10px;
@@ -20,10 +20,10 @@ form{
     padding: 20px;
     width: 20rem;
 }
-input{
+#login input, #registro input{
     width: 100%;
 }
-label{
+#login label, #registro label{
     text-align: left;
 }
 .div-button-log{
@@ -40,7 +40,7 @@ label{
 .button-login:hover{
     background-color:var(--secondary-color);
 }
-p{
+#login p, #registro p{
     padding: 10px;
 }
 

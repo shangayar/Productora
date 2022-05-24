@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import '../styles/userProfile.css';
-import Navbar from './Navbar';
 import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
 
@@ -9,7 +8,7 @@ export default function Profile() {
     let [userName, setName] = useState('nombre');
     let [userLastName, setLastName] = useState('apellido');
     let [userEmail, setEmail] = useState('nombre.apellido@gmail.com');
-    let [userPic, setPic] = useState('');
+    let [userPic, setPic] = useState('nonUser.png');
 
     const userNameSeleccionado = function(e){
         setName(e.target.value);
@@ -20,16 +19,27 @@ export default function Profile() {
     const userEmailSeleccionado = function(e){
         setEmail(e.target.value);
     };
+
+        /*Upload and delete user pic   
+        const FileUploader = () => {
+            const handleFileInput = () => {}
+        
+            return (
+                <div className="file-uploader">
+                    <input type="file" onChange={handleFileInput} ></input>
+                </div>
+            )
+        }*/
     function userPicSeleccionado (e){
         const imgPath = e.target.value.split(/[\\/]/);
         console.log(imgPath);
         const imgName = imgPath.at(-1)
         setPic(imgName);
         displayPicModal();
-    };
+    }; 
     function userPicEliminado(){
-        setPic('nonUser.png');
         displaylDeletePicModal();
+        setPic('nonUser.png');
     };
 
     /*Modal / overlay*/
@@ -90,8 +100,7 @@ export default function Profile() {
     }
 
     return (
-        <div>
-            <Navbar></Navbar>
+        <div id='#userProfile_body'>
             <div className='container blanco' id='perfilSection'>
                 <section className='col-sm-12 col-md-5 col-lg-6'>
                     <p className='encabezadoSize blanco capitalize'>{userName} {userLastName}</p>
@@ -133,10 +142,6 @@ export default function Profile() {
                             <div>
                                 <label htmlFor="email">Correo electrónico</label>
                                 <input type="email" autoComplete='email' placeholder={userEmail} onChange={userEmailSeleccionado} name="email" />
-                            </div>
-                            <div>
-                                <label htmlFor="apellido">Confirmar correo electrónico</label>
-                                <input type="email" autoComplete='off' placeholder={userEmail} name="apellido" />
                             </div>
                         </fieldset>
                         <button className='btnVioletaRedondo'>Guardar cambios</button>

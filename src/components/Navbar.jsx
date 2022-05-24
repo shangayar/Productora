@@ -1,17 +1,18 @@
 import React from 'react';
 import Homepage from '../components/Homepage'
-import Login from './Login'
-import SearchPage from './SearchPage'
-import Formulario from './FormularioRegistro'
-import Nosotros from './Nosotros'
+import Login from '../components/Login'
+import SearchPage from '../components/SearchPage'
+import UserProfile from '../components/UserProfile'
+import Formulario from '../components/FormularioRegistro'
+import Nosotros from '../components/Nosotros'
 import { AiFillInstagram } from "react-icons/ai";
 import {ImYoutube} from "react-icons/im";
 import {FaFacebookSquare} from "react-icons/fa";
 import {FaSearch} from "react-icons/fa";
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
+  Routes,
   Link
 } from "react-router-dom";
 
@@ -22,6 +23,34 @@ function openMenu(){
     navBar__menu.classList.toggle("active");
 };
 
+function Footer(){
+    return(
+        <div>
+            <footer>
+                <section>
+                    <div>
+                        <p>Grupo 4 - React #22014</p>
+                    </div>
+                    <ul>
+                        <li>Seguinos</li>
+                        <li><a href="https://www.instagram.com/" target='_blank'><AiFillInstagram style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                        <li><a href="https://www.youtube.com/" target='_blank'><ImYoutube style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                        <li><a href="https://www.facebook.com/" target='_blank'><FaFacebookSquare style={ {fill: "#fafafa", fontSize:"1.2rem"} } /></a></li>
+                    </ul>
+                </section>                
+                <section>
+                    <ul>
+                        <li><Link to="/">Inicio</Link></li>
+                        <li><Link to="/Nosotros">Nosotros</Link></li>
+                        <li><Link to="/Buscar">Búsqueda</Link></li>
+                        <li><Link to="/Perfil">Perfil</Link></li>
+                    </ul>
+                </section>
+            </footer>
+        </div>
+    )
+}
+
 function Navbar(){
     //Hamburger menu for small devices
     
@@ -31,7 +60,7 @@ function Navbar(){
                 <nav className='navBar'>
                     <div>
                         <Link to="/"  id='navbarLogo'>
-                            <div><img src="src/img/logoProductora.svg" alt=""/></div> 
+                            <div><img src="../src/img/logoProductora.svg" alt=""/></div> 
                             <p>React #22014</p>
                         </Link>
                     </div>
@@ -61,7 +90,10 @@ function Navbar(){
                     </Route>
                     <Route path="/IniciarSesion" element={<Login />}>
                     </Route>
+                    <Route path="/Perfil" element={<UserProfile />}>
+                    </Route>
                 </Routes>
+                <Footer></Footer>
             </Router>
         </div>
     )
