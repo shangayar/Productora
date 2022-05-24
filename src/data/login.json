@@ -1,0 +1,15 @@
+[
+    {
+        "nickName":"Admin",
+        "email":"admin@admin.com",
+        "password":"admin",
+        "userId":12345
+    },
+    {
+        "nickName":"default",
+        "email":"default@default.com",
+        "password":"default",
+        "userId": 555555
+    }
+]
+

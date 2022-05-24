@@ -1,10 +1,16 @@
 import { Button } from 'bootstrap';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 import '../styles/Login.css'
 
 function Login() {
   return (
     <div className="container-login">
-        <form>
+      <form>
           <label className="font-weight-bold" /> User
           <input className="text-dark rounded " type="text"></input>
           <label /> Password
