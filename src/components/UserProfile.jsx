@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import '../styles/userProfile.css';
+import Users from '../data/login.json'
 import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
 
@@ -98,6 +99,22 @@ export default function Profile() {
             modalDeletePic.style.display = "none";
         }
     }
+    const datosUser = Users;
+    const getUserData = datosUser.find(user => user.email == userEmail);
+    console.log(getUserData);
+
+    /*Función para modificar el JSON*/
+    function updateData(userEmail, userName) {
+        for (var i = 0; i < datosUser.length; i++) {
+            if (datosUser[i].email === userEmail) {
+                datosUser[i].nickName = userName;
+                /*datosUser[i].lastName = userLastName;*/
+                console.log(getUserData);
+
+                return;
+            }
+        }
+    }
 
     return (
         <div id='#userProfile_body'>
@@ -144,7 +161,7 @@ export default function Profile() {
                                 <input type="email" autoComplete='email' placeholder={userEmail} onChange={userEmailSeleccionado} name="email" />
                             </div>
                         </fieldset>
-                        <button className='btnVioletaRedondo'>Guardar cambios</button>
+                        <div className='btnVioletaRedondo' onClick={updateData}>Guardar cambios</div>
                     </form>
                 </section>
             </div>
