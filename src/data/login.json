@@ -3,12 +3,13 @@
         "nickName":"Admin",
         "email":"admin@admin.com",
         "password":"admin",
-        "userId":12345
+        "img": "may be undefined in which case has default pic",
+        "userId":"primary unique not null autoicrement"
     },
     {
-        "nickName":"default",
+        "nickName":"user, id documento: qPt4rLRQ9m6exhfAQLwe",
         "email":"default@default.com",
         "password":"default",
         "userId": 555555
     }
-]
+] 
