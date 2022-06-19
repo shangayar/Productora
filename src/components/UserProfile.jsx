@@ -147,8 +147,8 @@ export default function Profile() {
                                 <label htmlFor="email">Correo electrónico</label>
                                 <input type="email" autoComplete='email' placeholder={userEmail} onChange={userEmailSeleccionado} name="email" />
                             </div>
-                        </fieldset>
-                        <div className='btnVioletaRedondo' onClick={updateData}>Guardar cambios</div>
+                        </fieldset> 
+                        <div className='btnVioletaRedondo'>Guardar cambios</div>{/*onClick={updateData*/}
                     </form>
                 </section>
             </div>

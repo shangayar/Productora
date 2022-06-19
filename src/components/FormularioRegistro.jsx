@@ -81,7 +81,7 @@ const Formulario = () => {
         </div>
       </form>
       <p>
-        ¿Ya tienes Cuenta? <a href="/IniciarSesion">Inicia sesión</a>
+        ¿Ya tienes Cuenta? <Link to="/IniciarSesion">Inicia sesión</Link>
       </p>
     </div>
   );

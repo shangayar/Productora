@@ -1,11 +1,6 @@
 import { Button } from 'bootstrap';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
-import '../styles/Login.css'
+import { Link } from "react-router-dom";
+import '../styles/Login.css';
 
 function Login() {
   return (
@@ -19,7 +14,7 @@ function Login() {
             <button className="button-login">Iniciar sesión</button>
           </div>
         </form>
-        <p>¿No tienes una cuenta? <a href="/Registro">Registrate</a></p>
+        <p>¿No tienes una cuenta? <Link to="/Registro">Registrate</Link></p>
     </div>
   );
 }

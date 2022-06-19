@@ -1,12 +1,15 @@
 import './App.css';
 import React from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from './components/Navbar';
 
 function App() {
   console.log('AAAAAAAAAAAAAAAA');
   return (
     <>
-      <Navbar />
+      <Router>
+        <Navbar />
+      </Router>
     </>
   )
 }
