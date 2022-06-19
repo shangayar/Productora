@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react';
 import './App.css';
-import db from './data/database';
+import React from 'react';
 import Navbar from './components/Navbar';
 
 function App() {
-  useEffect(()=> {
-    const getUsers = async() => {
-      const users = await getDocs(collection(db, 'users'));
-      users.forEach((user) => {
-        console.log(user.id + ' ' + user.name)
-      });
-    }
-    getUsers();
-  }, []);
-
+  console.log('AAAAAAAAAAAAAAAA');
   return (
-    <div>
+    <>
       <Navbar />
-    </div>
+    </>
   )
 }
 
