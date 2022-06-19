@@ -1,28 +1,75 @@
 import React from "react";
-import { useState, useContext} from 'react';
-import { UserContext } from '../data/UserContext'
+import { useState } from 'react';
+import { client, q } from '../data/db';
 
 const Formulario = () => {
-  const [email, setEmail] = useState("default@default.com");
-  const [password, setPassword] = useState("1234567");
-  const [name, setName] = useState("Default");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   
-  const {createUser} = useContext(UserContext);
-  
-  const handleRegister = async(e) => {
+  /*const getAllUsers = client.query(
+    q.Paginate(
+      q.Match(
+        q.Ref('indexes/searchUser_email')))
+  )
+    .then(response => {
+      const UsersRefs = response.data
+      const getAllProductDataQuery = UsersRefs.map((ref) => {
+        return q.Get(ref)
+      })
+      return client.query(getAllProductDataQuery).then((data) => data)
+    })
+    .catch(error => console.warn('error', error.message))
+*/
+  function handleSubmit(e) {
     e.preventDefault();
-    console.log('Datos registrados: ', email, password)
-    try{
-      await createUser(email, password)
-    } catch(error){console.log(error)}
+    if (email && password && name) {
+      const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      let emailValidated;
+      let nameValidated;
+      let passwordValidated;
+      if(email.match(emailformat)){
+        emailValidated=email;
+      } else {
+        alert('Ingrese un mail válido');
+      }
+      if(password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
+        passwordValidated=password;
+      } else {
+        alert('Ingrese una contraseña válida. Debe contener 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter');
+      }
+      if(name.match(/^[a-zA-Z]+$/)){
+        nameValidated=name;
+      } else {
+        alert('El nombre sólo puede contener letras. No puede contener espaciados números ni caracteres especiales');
+      }
+      if (emailValidated && nameValidated && passwordValidated) {
+        client.query(
+          q.Create(
+            q.Collection('users'),
+            { data: { name: nameValidated, email: emailValidated, password: passwordValidated} }
+          )
+        )
+        .then((ret) => {console.log(ret);})
+        .then ( () =>{ alert('Usuario creado exitosamente')} )
+        .catch((err) => console.error(
+          'Error: [%s] %s: %s',
+          err.name,
+          err.message,
+          err.errors()[0].description,
+        ))
+      }
+    } else {
+      alert('Debe completar todos los campos correctamente!')
+    }
   }
-  
+
   return (
     <div className="container-login" id="registro">
       <p>
         Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit}>
         <label className="font-weight-bold" /> Nombre para mostrar
         <input className="text-dark rounded" onChange={(e) => setName(e.target.value)} name="name" value={name} type="text"></input>
         <label className="font-weight-bold" /> Correo Electrónico
