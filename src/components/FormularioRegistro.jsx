@@ -7,58 +7,68 @@ const Formulario = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  
-  /*const getAllUsers = client.query(
-    q.Paginate(
-      q.Match(
-        q.Ref('indexes/searchUser_email')))
-  )
-    .then(response => {
-      const UsersRefs = response.data
-      const getAllProductDataQuery = UsersRefs.map((ref) => {
-        return q.Get(ref)
-      })
-      return client.query(getAllProductDataQuery).then((data) => data)
+  let arrayEmails = [];
+  getAllEmails();
+
+  function getAllEmails(){
+    client.query(
+      q.Map(
+        q.Paginate(
+          q.Match(
+            q.Index('all_users')
+          )
+        ), 
+        q.Lambda(email, q.Select(['data', 'email'], q.Get(q.Var(email))))
+      )
+    )
+    .then(allEmails => {
+      arrayEmails=allEmails;
     })
     .catch(error => console.warn('error', error.message))
-*/
+  }
   function handleSubmit(e) {
+    let searchEmail = arrayEmails.data.find(i => i === email);
+
     e.preventDefault();
     if (email && password && name) {
-      const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      let emailValidated;
-      let nameValidated;
-      let passwordValidated;
-      if(email.match(emailformat)){
-        emailValidated=email;
+      if (searchEmail === email) {
+        alert('Esa dirección de mail ya ha sido registrada')
       } else {
-        alert('Ingrese un mail válido');
-      }
-      if(password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
-        passwordValidated=password;
-      } else {
-        alert('Ingrese una contraseña válida. Debe contener 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter');
-      }
-      if(name.match(/^[a-zA-Z]+$/)){
-        nameValidated=name;
-      } else {
-        alert('El nombre sólo puede contener letras. No puede contener espaciados números ni caracteres especiales');
-      }
-      if (emailValidated && nameValidated && passwordValidated) {
-        client.query(
-          q.Create(
-            q.Collection('users'),
-            { data: { name: nameValidated, email: emailValidated, password: passwordValidated} }
+        const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let emailValidated;
+        let nameValidated;
+        let passwordValidated;
+        if(email.match(emailformat)){
+          emailValidated=email;
+        } else {
+          alert('Ingrese un mail válido');
+        }
+        if(password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
+          passwordValidated=password;
+        } else {
+          alert('Ingrese una contraseña válida. Debe contener 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter');
+        }
+        if(name.match(/^[a-zA-Z]+$/)){
+          nameValidated=name;
+        } else {
+          alert('El nombre sólo puede contener letras. No puede contener espaciados números ni caracteres especiales');
+        }
+        if (emailValidated && nameValidated && passwordValidated) {
+          client.query(
+            q.Create(
+              q.Collection('users'),
+              { data: { name: nameValidated, email: emailValidated, password: passwordValidated} }
+            )
           )
-        )
-        .then((ret) => {console.log(ret);})
-        .then ( () =>{ alert('Usuario creado exitosamente')} )
-        .catch((err) => console.error(
-          'Error: [%s] %s: %s',
-          err.name,
-          err.message,
-          err.errors()[0].description,
-        ))
+          .then((ret) => {console.log(ret);})
+          .then ( () =>{ alert('Usuario creado exitosamente'); location.reload();} )
+          .catch((err) => console.error(
+            'Error: [%s] %s: %s',
+            err.name,
+            err.message,
+            err.errors()[0].description,
+          ))
+        }
       }
     } else {
       alert('Debe completar todos los campos correctamente!')

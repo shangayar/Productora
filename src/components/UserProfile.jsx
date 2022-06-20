@@ -9,7 +9,7 @@ export default function Profile() {
     let [userName, setName] = useState('nombre');
     let [userLastName, setLastName] = useState('apellido');
     let [userEmail, setEmail] = useState('nombre.apellido@gmail.com');
-    let [userPic, setPic] = useState('nonUser.png');
+    let [userPic, setPic] = useState('https://martinafernandezsuarez.com.ar/img/imagenesUnreleated/nonUser.png');
 
     const userNameSeleccionado = function(e){
         setName(e.target.value);
@@ -109,7 +109,7 @@ export default function Profile() {
                 <section className='col-sm-12 col-md-5 col-lg-6'>
                     <p className='encabezadoSize blanco capitalize'>{userName} {userLastName}</p>
                     <article onClick={displaylDeletePicModal}> 
-                        <img src={"src/img/" + userPic} id="imgProfile" alt="Foto de perfil" onError={userPicEliminado} />
+                        <img src={userPic} id="imgProfile" alt="Foto de perfil" onError={userPicEliminado} /> {/*"src/img/" + userPic*/}
                         <button><BiTrash style={ {fill: "#121212", fontSize:"1.5rem",} }></BiTrash></button>
                     </article>
                     <button onClick={displayPicModal}className='btnVioletaRedondo'>Cambiar foto</button>
