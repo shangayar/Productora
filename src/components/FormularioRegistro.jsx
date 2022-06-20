@@ -48,10 +48,10 @@ const Formulario = () => {
         } else {
           alert('Ingrese una contraseña válida. Debe contener 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter');
         }
-        if(name.match(/^[a-zA-Z]+$/)){
+        if(name.match(/^[a-zA-Z ]+$/)){
           nameValidated=name;
         } else {
-          alert('El nombre sólo puede contener letras. No puede contener espaciados números ni caracteres especiales');
+          alert('El nombre sólo puede contener letras. No puede contener números ni caracteres especiales');
         }
         if (emailValidated && nameValidated && passwordValidated) {
           client.query(
