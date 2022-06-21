@@ -3,12 +3,13 @@ import { client, q } from '../data/db';
 import { useCookies } from "react-cookie";
 
 function Logout(props) {
-    const [cookies, setCookie] = useCookies(["user"]);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     function handleSubmit(e) {
         alert('Ha cerrado la sesión con éxito(bug: el navbar cambia recién la segunda vez que se apreta el botón)');
         setCookie("user", false, { path: "/" });
         props.isAuthLogOut(cookies.user);
+        removeCookie("email");
 
         client.query(q.Logout(true));
     }

@@ -2,23 +2,44 @@ import React from 'react';
 import { useState, useEffect} from 'react';
 import '../styles/userProfile.css';
 import Users from '../data/login.json';
+import { client, q } from '../data/db';
+import { useCookies } from "react-cookie";
 import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
 
 export default function Profile() {
-    let [userName, setName] = useState('nombre');
+    const [cookies, setCookie] = useCookies(["email"]);
+    const userEmail = cookies.email;
+    let userData;
+    useEffect(() => {
+        userData = getUserData();
+    }, []);
+    
+    function getUserData() {
+        client.query(
+            q.Get( q.Match(q.Index('searchUser_email'), userEmail) )
+        )
+        .then((ret) => {
+            userData = ret.data
+            setName(ret.data.name);
+        })
+        .catch((err) => console.error(
+            'Error: [%s] %s: %s',
+            err.name,
+            err.message,
+            err.errors()[0].description,
+        ))
+    }
+    
+    let [userName, setName] = useState();
     let [userLastName, setLastName] = useState('apellido');
-    let [userEmail, setEmail] = useState('nombre.apellido@gmail.com');
     let [userPic, setPic] = useState('https://martinafernandezsuarez.com.ar/img/imagenesUnreleated/nonUser.png');
-
+    
     const userNameSeleccionado = function(e){
         setName(e.target.value);
     };
     const userLastNameSeleccionado = function(e){
         setLastName(e.target.value);
-    };
-    const userEmailSeleccionado = function(e){
-        setEmail(e.target.value);
     };
 
         /*Upload and delete user pic   
@@ -93,7 +114,6 @@ export default function Profile() {
         }
     }
     const datosUser = Users;
-    const getUserData = datosUser.find(user => user.email == userEmail);
 
     return (
         <div id='#userProfile_body'>
@@ -113,6 +133,7 @@ export default function Profile() {
                 <section className='col-sm-12 col-md-7 col-lg-6'>
                     <p className='encabezadoSize blanco'>Configuración de la cuenta</p>
                     <form action="" method='post' id='formProfileEdit'>
+                        <h5>Nombre y apellido:</h5>
                         <fieldset>
                             <div>
                                 <label htmlFor="nombre">Nombre</label>
@@ -123,23 +144,29 @@ export default function Profile() {
                                 <input type="text" className='capitalize' autoComplete='family-name' onChange={userLastNameSeleccionado} placeholder={userLastName} name="apellido" />
                             </div>
                         </fieldset>
+                        <h5>Cambiar contraseña:</h5>
                         <fieldset>
                             <div>
                                 <label htmlFor="pass">Nueva contraseña</label>
-                                <input type="password" autoComplete='new-password' minLength="6" name="pass" />
+                                <input type="password" autoComplete='on' minLength="6" name="new-password" />
                             </div>
                             <div>
                                 <label htmlFor="confirmPass">Confirmar contraseña</label>
-                                <input type="password" autoComplete='off' name="confirmPass" />
+                                <input type="password" autoComplete='off' name="confirm_new-password" />
                             </div>
                         </fieldset>
+                        <h5>Sus datos actuales:</h5>
                         <fieldset>
                             <div>
                                 <label htmlFor="email">Correo electrónico</label>
-                                <input type="email" autoComplete='email' placeholder={userEmail} onChange={userEmailSeleccionado} name="email" />
+                                <input type="email" placeholder={userEmail} name="email" disabled/>
+                            </div>
+                            <div>
+                                <label htmlFor="pass">Contraseña actual</label>
+                                <input type="password" autoComplete='new-password' minLength="6" name="pass" />
                             </div>
                         </fieldset> 
-                        <div className='btnVioletaRedondo'>Guardar cambios</div>{/*onClick={updateData*/}
+                        <button type="button" className="btnVioletaRedondo">Guardar cambios</button>{ /* onClick={updateUserData}*/}
                     </form>
                 </section>
             </div>

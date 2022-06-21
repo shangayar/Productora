@@ -61,10 +61,8 @@ function Navbar(){
     const [cookies] = useCookies(["user"]);
 
     useEffect(() => {
-        console.log('cookie is reloaded');
-        console.log(isAuth);
+        console.log('cookie was reloaded');
     }, [isAuth]);
-    console.log('AAAAA' + isAuth);
 
     return(
         <>
@@ -81,8 +79,8 @@ function Navbar(){
                     <li><a href="https://www.youtube.com/" target='_blank'><ImYoutube style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     <li><a href="https://www.facebook.com/" target='_blank'><FaFacebookSquare style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     { isAuth==='true'
-                        ? <li><Link to="/CerrarSesion">{console.log('im the true' + isAuth)}<button className='btnVioletaRedondo'>Log out</button></Link></li>
-                        : <li><Link to="/IniciarSesion">{console.log('im the false' + isAuth)}<button className='btnVioletaRedondo'>Log In</button></Link></li>
+                        ? <li><Link to="/CerrarSesion"><button className='btnVioletaRedondo'>Log out</button></Link></li>
+                        : <li><Link to="/IniciarSesion"><button className='btnVioletaRedondo'>Log In</button></Link></li>
                     }
                 </ul>
                 <div>

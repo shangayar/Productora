@@ -40,6 +40,7 @@ function Login(props) {
             alert('sesión iniciada');
             setCookie("user", true, { path: "/" });
             props.isAuthLogIn(cookies.user);
+            setCookie("email", email, { path: "/" });
             
             q.Login( q.Match(q.Index('searchUser_email'), email), { password: password }, )
           } else {
