@@ -11,7 +11,6 @@ function Logout(props) {
         props.isAuthLogOut(cookies.user);
         removeCookie("email");
 
-        client.query(q.Logout(true));
     }
 
 
