@@ -66,10 +66,10 @@ function Login(props) {
           <input className="text-dark rounded " type="text" onChange={(e) => setEmail(e.target.value)}></input>
           <label /> Password
           <input className="text-dark rounded" type="password" onChange={(e) => setPassword(e.target.value)}></input>
-          <div className="div-button-log">
-            <button type="button" className="button-login" onClick={handleSubmit}>Iniciar sesión</button>
-          </div>
         </form>
+        <div className="div-button-log">
+          <button type="button" className="button-login" onClick={handleSubmit}>Iniciar sesión</button>
+        </div>
         <p>¿No tienes una cuenta? <Link to="/Registro">Registrate</Link></p>
     </div>
   );

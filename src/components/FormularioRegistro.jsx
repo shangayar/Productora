@@ -87,10 +87,10 @@ const Formulario = () => {
         <input className="text-dark rounded" onChange={(e) => setEmail(e.target.value)} name="email" value={email} type="text"></input>
         <label /> Contraseña
         <input className="text-dark rounded" onChange={(e) => setPassword(e.target.value)} name="password" value={password} type="password"></input>
-        <div className="div-button-log">
-          <button type="submit" className="button-login">Registrarse</button>
-        </div>
       </form>
+      <div className="div-button-log">
+        <button type="button" className="button-login">Registrarse</button>
+      </div>
       <p>
         ¿Ya tienes Cuenta? <Link to="/IniciarSesion">Inicia sesión</Link>
       </p>
