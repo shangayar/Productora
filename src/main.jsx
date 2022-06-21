@@ -4,9 +4,12 @@ import App from './App'
 import './index.css'
 import * as bootstrap from 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CookiesProvider } from "react-cookie";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
   </React.StrictMode>
 )

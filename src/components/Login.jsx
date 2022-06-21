@@ -2,19 +2,22 @@ import { Button } from 'bootstrap';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import '../styles/Login.css';
-import { useAppContext } from "../data/authContext";
 import { client, q } from '../data/db';
+import { useCookies } from "react-cookie";
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [cookies, setCookie] = useCookies(["user"]);
+
+  let foundUser;
+
   function getAllUsers(userEmail){
     client.query(
-      q.Paginate( q.Match(q.Index('searchUser_email'), userEmail) )
+      q.Get( q.Match(q.Index('searchUser_email'), userEmail) )
     )
     .then(ret => {
-      console.log(ret.data);
+      foundUser = ret.data;
     })
     .catch((err) => console.error(
       'Error: [%s] %s: %s',
@@ -23,22 +26,25 @@ function Login() {
       err.errors()[0].description,
     ))
   }
-  function handleSubmit(e) {
-    e.preventDefault();
 
+  function isUserCorrect(userData) {
     if (email && password) {
-      let userEmail = email;
-      const foundUser= getAllUsers(userEmail);
-      if (foundUser < 0 ) { /*ARREGLAR ESTO, NO TIENE SENTIDO*/
-        alert('Esa dirección de mail no ha sido registrada')
+      console.log(userData);
+
+      if (!foundUser) {
+        alert('Esa dirección de mail no ha sido registrada (bug: sólo toma el log in la segunda vez que seapreta el botón, el navbar cambia en la cuarta vez que se apreta el botón)')
       } else {
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if(email.match(emailformat)){
-          console.log(foundUser);
-          let userPass = q.Select(['data', 'password'], q.Get(q.Var(password)));
-           /*COMO AGARRO LA PASS DESDE ESTE REF?*/
-           console.log(userPass);
-          alert('sesión iniciada');
+          if (userData.email === email && userData.password === password) {
+            alert('sesión iniciada');
+            setCookie("user", true, { path: "/" });
+            props.isAuthLogIn(cookies.user);
+            
+            q.Login( q.Match(q.Index('searchUser_email'), email), { password: password }, )
+          } else {
+            alert('El mail y la contraseña no coinciden');
+          }
         } else {
           alert('Ingrese un mail válido');
         }
@@ -47,8 +53,12 @@ function Login() {
       alert('Debe completar todos los campos')
     }
   }
-  const { userHasAuthenticated } = useAppContext();
-
+  function handleSubmit(e) {
+    getAllUsers(email);
+    e.preventDefault();
+    isUserCorrect(foundUser);
+    /*El log in funciona a la segunda vz que se manda el formulario*/
+  }
   return (
     <div className="container-login" id='login'>
         <form >

@@ -1,19 +1,28 @@
 import './App.css';
 import React from 'react';
-import {useState} from 'react';
+import {useEffect} from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from './components/Navbar';
-import { AppContext } from "./data/authContext";
+import { useCookies } from "react-cookie";
 
 function App() {
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [cookies, setCookie] = useCookies(["user"]);
+  let isAuth;
+  
+  //set the cookie to false only once so that it can be removed
+  useEffect(() => {
+    console.log('cookie is set for the first time');
+    
+    setCookie("user", false, { path: "/" });
+    
+    isAuth = cookies.user;
+  }, []);
+
   return (
-    <>
-      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>{/* all the child components inside the Context Provider can access the auth.*/}
-        <Router>
-          <Navbar />
-        </Router>
-      </AppContext.Provider>
+    <>      
+      <Router>
+        <Navbar/>
+      </Router>
     </>
   )
 }

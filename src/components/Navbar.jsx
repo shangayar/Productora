@@ -1,15 +1,21 @@
 import React from 'react';
+import {useEffect, useState} from 'react';
+
+import { Route, Routes, Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 import Homepage from '../components/Homepage'
 import Login from '../components/Login'
+import Logout from '../components/logout'
 import SearchPage from '../components/SearchPage'
 import UserProfile from '../components/UserProfile'
 import Formulario from '../components/FormularioRegistro'
 import Nosotros from '../components/Nosotros'
+
 import { AiFillInstagram } from "react-icons/ai";
 import {ImYoutube} from "react-icons/im";
 import {FaFacebookSquare} from "react-icons/fa";
 import {FaSearch} from "react-icons/fa";
-import { Route, Routes, Link } from "react-router-dom";
 
 function openMenu(){
     const navBar__hamburger = document.querySelector(".navBar__hamburger");
@@ -47,8 +53,19 @@ function Footer(){
 }
 
 function Navbar(){
-    //Hamburger menu for small devices
+    const [isAuth, setisAuth] = useState('');
     
+    const isAuthLogIn = (data) => { console.log('child says' + data);  setisAuth(data) }
+    const isAuthLogOut = (data) => { console.log('child says' + data); setisAuth(data) }
+  
+    const [cookies] = useCookies(["user"]);
+
+    useEffect(() => {
+        console.log('cookie is reloaded');
+        console.log(isAuth);
+    }, [isAuth]);
+    console.log('AAAAA' + isAuth);
+
     return(
         <>
             <nav className='navBar'>
@@ -63,7 +80,10 @@ function Navbar(){
                     <li><a href="https://www.instagram.com/" target='_blank'><AiFillInstagram style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     <li><a href="https://www.youtube.com/" target='_blank'><ImYoutube style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     <li><a href="https://www.facebook.com/" target='_blank'><FaFacebookSquare style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
-                    <li><Link to="/IniciarSesion"><button className='btnVioletaRedondo'>Log In</button></Link></li>
+                    { isAuth==='true'
+                        ? <li><Link to="/CerrarSesion">{console.log('im the true' + isAuth)}<button className='btnVioletaRedondo'>Log out</button></Link></li>
+                        : <li><Link to="/IniciarSesion">{console.log('im the false' + isAuth)}<button className='btnVioletaRedondo'>Log In</button></Link></li>
+                    }
                 </ul>
                 <div>
                     <div className="navBar__hamburger" onClick={openMenu}>
@@ -82,9 +102,11 @@ function Navbar(){
                 </Route>
                 <Route path="/Buscar" element={<SearchPage />}>
                 </Route>
-                <Route path="/IniciarSesion" element={<Login />}>
+                <Route path="/IniciarSesion" element={<Login isAuthLogIn={isAuthLogIn}/>}>
                 </Route>
                 <Route path="/Perfil" element={<UserProfile />}>
+                </Route>
+                <Route path="/CerrarSesion" element={<Logout isAuthLogOut={isAuthLogOut}/>}>
                 </Route>
             </Routes>
             <Footer></Footer>

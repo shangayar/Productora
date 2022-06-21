@@ -33,7 +33,6 @@ export default function Profile() {
         }*/
     function userPicSeleccionado (e){
         const imgPath = e.target.value.split(/[\\/]/);
-        console.log(imgPath);
         const imgName = imgPath.at(-1)
         setPic(imgName);
         displayPicModal();
@@ -60,13 +59,7 @@ export default function Profile() {
 
     var modalForSession = document.getElementById('modalForSession');
     window.addEventListener('click', clickOutsideModalSession); 
-    function displaySessionModal() {
-        if (modalForSession.style.display == "none") {
-            modalForSession.style.display = "flex";
-        } else {
-            modalForSession.style.display="none"
-        }
-    } function clickOutsideModalSession(e){
+    function clickOutsideModalSession(e){
         if(e.target == modalForSession){
             modalForSession.style.display = "none";
         }
@@ -101,7 +94,6 @@ export default function Profile() {
     }
     const datosUser = Users;
     const getUserData = datosUser.find(user => user.email == userEmail);
-    console.log(getUserData);
 
     return (
         <div id='#userProfile_body'>
@@ -114,7 +106,6 @@ export default function Profile() {
                     </article>
                     <button onClick={displayPicModal}className='btnVioletaRedondo'>Cambiar foto</button>
                     <div>
-                        <button onClick={displaySessionModal}>Cambiar de cuenta</button>
                         <button onClick={displayExitModal}>Cerrar sesión</button>
                     </div>
                 </section>
@@ -158,19 +149,6 @@ export default function Profile() {
                     <div><button onClick={displayPicModal}><IoMdClose style={ {fill: "var(--white)", fontSize:"1.5rem",} }></IoMdClose></button></div>
                     <label htmlFor="userPicture">Seleccioná una foto de perfil</label>
                     <input type="file" name="userPicture" accept="image/png, image/jpeg, image/jpg" onChange={userPicSeleccionado}/>
-                </article>
-            </section>
-            <section id='modalForSession' className='modalOverlay'>
-                <article>
-                    <div><button onClick={displaySessionModal}><IoMdClose style={ {fill: "var(--white)", fontSize:"1.5rem",} }></IoMdClose></button></div>
-                    <p className='encabezadoModal'>Seleccioná una cuenta</p>
-                    
-                        {/* Array con todas las sesiones iniciadas y display foto y nombre <p>Seleccioná una cuenta</p>
-                                {array.forEach(sesionIniciada => {
-                                    <button className=''></button>
-                                });}
-                            </article>
-                        */}
                 </article>
             </section>
             <section id='modalForExit' className='modalOverlay'>
