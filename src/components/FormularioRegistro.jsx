@@ -80,7 +80,7 @@ const Formulario = () => {
       <p>
         Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label className="font-weight-bold" /> Nombre para mostrar
         <input className="text-dark rounded" onChange={(e) => setName(e.target.value)} name="name" value={name} type="text"></input>
         <label className="font-weight-bold" /> Correo Electrónico
@@ -89,7 +89,7 @@ const Formulario = () => {
         <input className="text-dark rounded" onChange={(e) => setPassword(e.target.value)} name="password" value={password} type="password"></input>
       </form>
       <div className="div-button-log">
-        <button type="button" className="button-login">Registrarse</button>
+        <button onClick={handleSubmit} type="button" className="button-login">Registrarse</button>
       </div>
       <p>
         ¿Ya tienes Cuenta? <Link to="/IniciarSesion">Inicia sesión</Link>
