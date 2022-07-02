@@ -8,6 +8,7 @@ import Homepage from '../pages/Homepage'
 import Login from '../pages/Login'
 import Logout from '../pages/Logout'
 import SearchPage from '../pages/SearchPage'
+import MoviePage from '../pages/MoviePage'
 import UserProfile from '../pages/UserProfile'
 import Formulario from '../pages/FormularioRegistro'
 import Nosotros from '../pages/Nosotros'
@@ -100,6 +101,7 @@ function Navbar(){
                 </Route>
                 <Route path="/Buscar" element={<SearchPage />}>
                 </Route>
+                <Route path="/Peliculas/:id" element={<MoviePage />} />
                 <Route path="/IniciarSesion" element={<Login isAuthLogIn={isAuthLogIn}/>}>
                 </Route>
                 <Route path="/Perfil" element={<UserProfile />}>
