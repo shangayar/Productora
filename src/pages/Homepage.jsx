@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../styles/homepage.css';
 import { Col, Row} from 'react-bootstrap';
 import someMovies from '../data/someMovies.json';
-import MovieCard from '../components/movieCard';
+import MovieCard from '../components/MovieCard';
 
 function Homepage(){
     const skillsList = [
