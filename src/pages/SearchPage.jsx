@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, Container, FormControl, InputGroup, Col, Row} from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 const base_url = `https://imdb-api.com/en/API/SearchTitle/${import.meta.env.VITE_MOVIES_API_KEY}`
 const response = {
@@ -159,13 +160,19 @@ export default function SearchPage() {
                 movieList.map((movie) => (
                     <Col sm={6} md={4} lg={3} key={movie.id}>
                     {/* <Col xs={6} sm={4} md={3} lg={2}> */}
-                        <Card bg={"dark"} key={movie.id} className="mb-3">
-                            <Card.Img variant="top" src={movie.image} />
-                            <Card.Body>
-                                <Card.Title>{`${movie.title}`}</Card.Title>
-                                <Card.Subtitle className="mt-2 text-muted">{`${movie.description}`}</Card.Subtitle>
-                            </Card.Body>
-                        </Card>
+                        <Link to={`/Peliculas/${movie.id}`} state={{movieData: movie}}>
+                            <Card bg={"dark"} key={movie.id} className="mb-3">
+                                <Card.Img variant="top" src={movie.image} />
+                                <Card.Body>
+                                    <Card.Title>{`${movie.title}`}</Card.Title>
+                                    {
+                                        movie.description && (
+                                            <Card.Subtitle className="mt-2 text-muted">{movie.description}</Card.Subtitle>
+                                        )
+                                    }
+                                </Card.Body>
+                            </Card>
+                        </Link>
                     </Col>
                 ))
             }
