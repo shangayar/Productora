@@ -1,21 +1,23 @@
 import '../styles/Login.css';
-import { client, q } from '../data/db';
+import { useState } from 'react';
 import { useCookies } from "react-cookie";
+import BlockMsg from "../components/BlockMsg";
 
 function Logout(props) {
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies, setCookie] = useCookies(["user"]);
 
-    function handleSubmit(e) {
-        alert('Ha cerrado la sesión con éxito(bug: el navbar cambia recién la segunda vez que se apreta el botón)');
-        setCookie("user", false, { path: "/" });
-        props.isAuthLogOut(cookies.user);
-        removeCookie("email");
-
+    const [msg, setMsg] = useState("");
+    const newLocal = false; //for BlockMsg
+  
+    function handleSubmit() {      
+      setCookie("user", false, { path: "/" });
+      props.isAuthLogOut(cookies.user);
+      setMsg('Ha cerrado la sesión correctamente. Toca dos veces para cambiar el navbar');
     }
-
 
   return (
     <div className="container-login" id='login'>
+        {msg.length > 2 ? <BlockMsg msg={msg}/> : newLocal}
         <form >
           <label className="font-weight-bold" /> ¿Desea cerrar sesión?
           <input type="hidden"></input>

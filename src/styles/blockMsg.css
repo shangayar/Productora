@@ -1,0 +1,11 @@
+.ctn_msg {
+    font-size: 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    padding: 10px;
+    border: 2px solid var(--primary-color);
+    margin: 10px 0px;
+}

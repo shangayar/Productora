@@ -1,11 +1,12 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
-import '../styles/userProfile.css';
-import Users from '../data/login.json';
-import { client, q } from '../data/db';
 import { useCookies } from "react-cookie";
 import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
+
+import '../styles/userProfile.css';
+
+import { client, q } from '../data/db';
 
 export default function Profile() {
     const [cookies, setCookie] = useCookies(["email"]);

@@ -4,13 +4,13 @@ import {useEffect, useState} from 'react';
 import { Route, Routes, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-import Homepage from '../components/Homepage'
-import Login from '../components/Login'
-import Logout from '../components/logout'
-import SearchPage from '../components/SearchPage'
-import UserProfile from '../components/UserProfile'
-import Formulario from '../components/FormularioRegistro'
-import Nosotros from '../components/Nosotros'
+import Homepage from '../pages/Homepage'
+import Login from '../pages/Login'
+import Logout from '../pages/Logout'
+import SearchPage from '../pages/SearchPage'
+import UserProfile from '../pages/UserProfile'
+import Formulario from '../pages/FormularioRegistro'
+import Nosotros from '../pages/Nosotros'
 
 import { AiFillInstagram } from "react-icons/ai";
 import {ImYoutube} from "react-icons/im";

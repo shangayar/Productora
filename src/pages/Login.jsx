@@ -4,63 +4,67 @@ import { useState } from 'react';
 import '../styles/Login.css';
 import { client, q } from '../data/db';
 import { useCookies } from "react-cookie";
+import BlockMsg from "../components/BlockMsg";
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
-
+  
   let foundUser;
 
-  function getAllUsers(userEmail){
+  const [msg, setMsg] = useState("");
+  const newLocal = false; //for BlockMsg
+
+  function validateUserByEmail(userEmail){
     client.query(
       q.Get( q.Match(q.Index('searchUser_email'), userEmail) )
     )
     .then(ret => {
-      foundUser = ret.data;
+      return foundUser = ret.data;
     })
-    .catch((err) => console.error(
-      'Error: [%s] %s: %s',
-      err.name,
-      err.message,
-      err.errors()[0].description,
-    ))
+    .then(foundUser => {
+      isUserCorrect(foundUser)
+    })
+    .catch((err) => console.error(err))
+  }
+
+  function setEmailCookie() {
+    setCookie("user", true, { path: "/" });
+    props.isAuthLogIn(cookies.user);
   }
 
   function isUserCorrect(userData) {
     if (email && password) {
-      console.log(userData);
 
       if (!foundUser) {
-        alert('Esa dirección de mail no ha sido registrada (bug: sólo toma el log in la segunda vez que seapreta el botón, el navbar cambia en la cuarta vez que se apreta el botón)')
+        setMsg('Esa dirección de mail no ha sido registrada')
       } else {
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if(email.match(emailformat)){
           if (userData.email === email && userData.password === password) {
-            alert('sesión iniciada');
-            setCookie("user", true, { path: "/" });
-            props.isAuthLogIn(cookies.user);
-            setCookie("email", email, { path: "/" });
-            
+            setMsg('Sesión iniciada correctamente. Toca dos veces para cambiar el navbar');
+            setEmailCookie();
           } else {
-            alert('El mail y la contraseña no coinciden');
+            setMsg('El mail y la contraseña no coinciden');
           }
         } else {
-          alert('Ingrese un mail válido');
+          setMsg('Ingrese un mail válido');
         }
       }
+
     } else {
-      alert('Debe completar todos los campos')
+      setMsg('Debe completar todos los campos')
     }
   }
-  function handleSubmit(e) {
-    getAllUsers(email);
-    e.preventDefault();
-    isUserCorrect(foundUser);
-    /*El log in funciona a la segunda vz que se manda el formulario*/
+
+  const handleSubmit = () => {
+    validateUserByEmail(email);
   }
+
   return (
     <div className="container-login" id='login'>
+        {msg.length > 2 ? <BlockMsg msg={msg}/> : newLocal}
         <form >
           <label className="font-weight-bold" /> User
           <input className="text-dark rounded " type="text" onChange={(e) => setEmail(e.target.value)}></input>

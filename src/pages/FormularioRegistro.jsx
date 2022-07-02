@@ -1,12 +1,15 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { client, q } from '../data/db';
+import BlockMsg from "../components/BlockMsg";
 
 const Formulario = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [msg, setMsg] = useState("");
+  const newLocal = false; //for BlockMsg
+
   let arrayEmails = [];
   getAllEmails();
 
@@ -26,13 +29,14 @@ const Formulario = () => {
     })
     .catch(error => console.warn('error', error.message))
   }
+
   function handleSubmit(e) {
     let searchEmail = arrayEmails.data.find(i => i === email);
 
     e.preventDefault();
     if (email && password && name) {
       if (searchEmail === email) {
-        alert('Esa dirección de mail ya ha sido registrada')
+        setMsg('Esa dirección de mail ya ha sido registrada')
       } else {
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let emailValidated;
@@ -41,17 +45,17 @@ const Formulario = () => {
         if(email.match(emailformat)){
           emailValidated=email;
         } else {
-          alert('Ingrese un mail válido');
+          setMsg('Ingrese un mail válido');
         }
         if(password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
           passwordValidated=password;
         } else {
-          alert('Ingrese una contraseña válida. Debe contener 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter');
+          setMsg('Ingrese una contraseña válida. Debe contener entre 6 y 20 caracteres, un número, una letra mayúscula y una minúscula');
         }
         if(name.match(/^[a-zA-Z ]+$/)){
           nameValidated=name;
         } else {
-          alert('El nombre sólo puede contener letras. No puede contener números ni caracteres especiales');
+          setMsg('El nombre sólo puede contener letras.');
         }
         if (emailValidated && nameValidated && passwordValidated) {
           client.query(
@@ -61,7 +65,12 @@ const Formulario = () => {
             )
           )
           .then((ret) => {console.log(ret);})
-          .then ( () =>{ alert('Usuario creado exitosamente'); location.reload();} )
+          .then ( () =>{ 
+            setMsg('Usuario creado exitosamente');
+            setEmail("");
+            setPassword("");
+            setName("");
+          } )
           .catch((err) => console.error(
             'Error: [%s] %s: %s',
             err.name,
@@ -71,12 +80,13 @@ const Formulario = () => {
         }
       }
     } else {
-      alert('Debe completar todos los campos correctamente!')
+      setMsg('Debe completar todos los campos correctamente!')
     }
   }
 
   return (
     <div className="container-login" id="registro">
+      {msg.length > 2 ? <BlockMsg msg={msg}/> : newLocal}
       <p>
         Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>

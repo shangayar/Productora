@@ -1,6 +1,6 @@
 :root{
     --primary-color:#764AF1;
-    --secondary-color:#9772
+    --secondary-color: #9772;
 }
 
 .container-login{
@@ -8,13 +8,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top:30vh;  
+    margin-top: 10vh;  
 }
 #login form, #registro form{
     align-items: left;
-    border: 2px solid;
+    border: 2px solid var(--primary-color);
     border-radius:10px;
-    border-color: var(--primary-color);
     display: flex;
     flex-direction: column;
     padding: 20px;
