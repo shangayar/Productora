@@ -9,7 +9,6 @@ function App() {
   const [cookies, setCookie] = useCookies(["user"]);
   let isAuth;
   
-  //set the cookie to false only once so that it can be removed
   useEffect(() => {
     console.log('cookie is set for the first time');
     

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useCookies } from "react-cookie";
 import BlockMsg from "../components/BlockMsg";
 
-function Logout(props) {
+function Logout() {
     const [cookies, setCookie] = useCookies(["user"]);
 
     const [msg, setMsg] = useState("");
@@ -11,7 +11,6 @@ function Logout(props) {
   
     function handleSubmit() {      
       setCookie("user", false, { path: "/" });
-      props.isAuthLogOut(cookies.user);
       setMsg('Ha cerrado la sesión correctamente. Toca dos veces para cambiar el navbar');
     }
 

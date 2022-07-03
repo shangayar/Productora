@@ -14,8 +14,8 @@ import Nosotros from '../pages/Nosotros'
 
 import { AiFillInstagram } from "react-icons/ai";
 import {ImYoutube} from "react-icons/im";
-import {FaFacebookSquare} from "react-icons/fa";
-import {FaSearch} from "react-icons/fa";
+import {FaFacebookSquare, FaSearch} from "react-icons/fa";
+import {HiUser} from "react-icons/hi";
 
 function openMenu(){
     const navBar__hamburger = document.querySelector(".navBar__hamburger");
@@ -44,7 +44,6 @@ function Footer(){
                         <li><Link to="/">Inicio</Link></li>
                         <li><Link to="/Nosotros">Nosotros</Link></li>
                         <li><Link to="/Buscar">Búsqueda</Link></li>
-                        <li><Link to="/Perfil">Perfil</Link></li>
                     </ul>
                 </section>
             </footer>
@@ -53,16 +52,13 @@ function Footer(){
 }
 
 function Navbar(){
-    const [isAuth, setisAuth] = useState('');
-    
-    const isAuthLogIn = (data) => { console.log('child says' + data);  setisAuth(data) }
-    const isAuthLogOut = (data) => { console.log('child says' + data); setisAuth(data) }
-  
     const [cookies] = useCookies(["user"]);
-
+    const [isAuth, setisAuth] = useState(false);
+    
     useEffect(() => {
         console.log('cookie was reloaded');
-    }, [isAuth]);
+        setisAuth(cookies.user)
+    }, [cookies.user]);
 
     return(
         <>
@@ -78,6 +74,10 @@ function Navbar(){
                     <li><a href="https://www.instagram.com/" target='_blank'><AiFillInstagram style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     <li><a href="https://www.youtube.com/" target='_blank'><ImYoutube style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
                     <li><a href="https://www.facebook.com/" target='_blank'><FaFacebookSquare style={ {fill: "#fafafa", fontSize:"1.5rem"} } /></a></li>
+                    { isAuth==='true'
+                        ? <li><Link to="/Perfil"><HiUser style={ {fill: "#fafafa", fontSize:"1.5rem"} }></HiUser></Link></li>
+                        : false
+                    }
                     { isAuth==='true'
                         ? <li><Link to="/CerrarSesion"><button className='btnVioletaRedondo'>Log out</button></Link></li>
                         : <li><Link to="/IniciarSesion"><button className='btnVioletaRedondo'>Log In</button></Link></li>
@@ -100,11 +100,11 @@ function Navbar(){
                 </Route>
                 <Route path="/Buscar" element={<SearchPage />}>
                 </Route>
-                <Route path="/IniciarSesion" element={<Login isAuthLogIn={isAuthLogIn}/>}>
+                <Route path="/IniciarSesion" element={<Login />}>
                 </Route>
                 <Route path="/Perfil" element={<UserProfile />}>
                 </Route>
-                <Route path="/CerrarSesion" element={<Logout isAuthLogOut={isAuthLogOut}/>}>
+                <Route path="/CerrarSesion" element={<Logout />}>
                 </Route>
             </Routes>
             <Footer></Footer>

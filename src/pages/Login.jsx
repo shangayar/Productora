@@ -6,7 +6,7 @@ import { client, q } from '../data/db';
 import { useCookies } from "react-cookie";
 import BlockMsg from "../components/BlockMsg";
 
-function Login(props) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
@@ -29,9 +29,9 @@ function Login(props) {
     .catch((err) => console.error(err))
   }
 
-  function setEmailCookie() {
+  function setEmailCookie(email) {
     setCookie("user", true, { path: "/" });
-    props.isAuthLogIn(cookies.user);
+    setCookie("email", email, { path: "/" });//this will be read in userProfile
   }
 
   function isUserCorrect(userData) {
@@ -43,8 +43,8 @@ function Login(props) {
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if(email.match(emailformat)){
           if (userData.email === email && userData.password === password) {
-            setMsg('Sesión iniciada correctamente. Toca dos veces para cambiar el navbar');
-            setEmailCookie();
+            setMsg('Sesión iniciada correctamente');
+            setEmailCookie(email);
           } else {
             setMsg('El mail y la contraseña no coinciden');
           }

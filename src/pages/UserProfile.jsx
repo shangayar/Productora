@@ -10,7 +10,7 @@ import { client, q } from '../data/db';
 
 export default function Profile() {
     const [cookies, setCookie] = useCookies(["email"]);
-    const userEmail = cookies.email;
+    const userEmail = cookies.email; 
     let userData;
     useEffect(() => {
         userData = getUserData();
@@ -33,7 +33,7 @@ export default function Profile() {
     }
     
     let [userName, setName] = useState();
-    let [userLastName, setLastName] = useState('apellido');
+    let [userLastName, setLastName] = useState('');
     let [userPic, setPic] = useState('https://martinafernandezsuarez.com.ar/img/imagenesUnreleated/nonUser.png');
     
     const userNameSeleccionado = function(e){
@@ -114,7 +114,6 @@ export default function Profile() {
             modalDeletePic.style.display = "none";
         }
     }
-    const datosUser = Users;
 
     return (
         <div id='#userProfile_body'>
