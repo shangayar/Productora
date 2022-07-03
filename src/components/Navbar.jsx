@@ -8,6 +8,7 @@ import Homepage from '../pages/Homepage'
 import Login from '../pages/Login'
 import Logout from '../pages/Logout'
 import SearchPage from '../pages/SearchPage'
+import MoviePage from '../pages/MoviePage'
 import UserProfile from '../pages/UserProfile'
 import Formulario from '../pages/FormularioRegistro'
 import Nosotros from '../pages/Nosotros'
@@ -92,20 +93,14 @@ function Navbar(){
                 </div>
             </nav>
             <Routes>
-                <Route path="/" element={<Homepage></Homepage>}>
-                </Route>
-                <Route path="/Nosotros" element={<Nosotros></Nosotros>}>
-                </Route>
-                <Route path="/Registro" element={<Formulario/>}>
-                </Route>
-                <Route path="/Buscar" element={<SearchPage />}>
-                </Route>
-                <Route path="/IniciarSesion" element={<Login />}>
-                </Route>
-                <Route path="/Perfil" element={<UserProfile />}>
-                </Route>
-                <Route path="/CerrarSesion" element={<Logout />}>
-                </Route>
+                <Route path="/" element={<Homepage></Homepage>}/>
+                <Route path="/Nosotros" element={<Nosotros></Nosotros>}/>
+                <Route path="/Registro" element={<Formulario/>}/>
+                <Route path="/Buscar" element={<SearchPage />} />
+                <Route path="/IniciarSesion" element={<Login />} />
+                <Route path="/Peliculas/:id" element={<MoviePage />} />
+                <Route path="/Perfil" element={<UserProfile />}/>
+                <Route path="/CerrarSesion" element={<Logout />}/>
             </Routes>
             <Footer></Footer>
         </>
