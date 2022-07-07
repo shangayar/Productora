@@ -5,24 +5,31 @@ import { BiTrash } from "react-icons/bi";
 import {IoMdClose} from "react-icons/io";
 
 import '../styles/userProfile.css';
+import BlockMsg from "../components/BlockMsg";
 
 import { client, q } from '../data/db';
 
 export default function Profile() {
-    const [cookies, setCookie] = useCookies(["email"]);
+    const newLocal = false; //for BlockMsg
+    const [msg, setMsg] = useState("");
+    const [userData, setuserData] = useState([]);
+    const [userRef, setuserRef] = useState([]);
+    const [cookies] = useCookies(["email"]);
     const userEmail = cookies.email; 
-    let userData;
     useEffect(() => {
-        userData = getUserData();
+        getUserData();
+        console.log(userRef)
     }, []);
+    console.log(userData)
     
     function getUserData() {
         client.query(
             q.Get( q.Match(q.Index('searchUser_email'), userEmail) )
         )
         .then((ret) => {
-            userData = ret.data
-            setName(ret.data.name);
+            setuserRef(ret.ref.value.id);
+            setName(userData.name);
+            setuserData(ret.data);
         })
         .catch((err) => console.error(
             'Error: [%s] %s: %s',
@@ -32,27 +39,12 @@ export default function Profile() {
         ))
     }
     
-    let [userName, setName] = useState();
-    let [userLastName, setLastName] = useState('');
+    let [userName, setName] = useState('');
+    let [password, setPassword] = useState('');
+    let [newPassword, setNewPassword] = useState('');
+    let [newPasswordConfirm, setNewPasswordConfirm] = useState('');
     let [userPic, setPic] = useState('https://martinafernandezsuarez.com.ar/img/imagenesUnreleated/nonUser.png');
-    
-    const userNameSeleccionado = function(e){
-        setName(e.target.value);
-    };
-    const userLastNameSeleccionado = function(e){
-        setLastName(e.target.value);
-    };
 
-        /*Upload and delete user pic   
-        const FileUploader = () => {
-            const handleFileInput = () => {}
-        
-            return (
-                <div className="file-uploader">
-                    <input type="file" onChange={handleFileInput} ></input>
-                </div>
-            )
-        }*/
     function userPicSeleccionado (e){
         const imgPath = e.target.value.split(/[\\/]/);
         const imgName = imgPath.at(-1)
@@ -63,6 +55,47 @@ export default function Profile() {
         displaylDeletePicModal();
         setPic('nonUser.png');
     };
+
+    //Update Data
+    function updateUserData() {
+        let finalPass;
+        if (newPassword) {
+            if (newPassword === newPasswordConfirm) {
+                finalPass = newPassword;
+            console.log(password)
+            console.log(userData.password)
+            console.log(userEmail)
+            console.log(userData.email)
+            } else {
+                console.log('no coinciden')
+
+                setMsg('Las nuevas contraseñas no coinciden')
+            }
+        } else {
+            finalPass = password;
+            setMsg('Las contraseñas coinciden')
+            console.log('no cambia')
+        }
+        if (password === userData.password && userEmail === userData.email ) {
+                setMsg('Los datos son correctos')
+                console.log('pass ' + password)
+            client.query(
+                q.Replace(q.Ref(q.Collection('users'), userRef),
+                    { data: { name: userName, password: finalPass }, }, 
+                )
+            )
+            .then((ret) => {
+            console.log('llega a ret')
+            console.log(ret);
+            })
+            .catch((err) => console.error(
+                'Error: [%s] %s: %s',
+                err.name,
+                err.message,
+                err.errors()[0].description,
+            ))
+        }
+    }
 
     /*Modal / overlay*/
     var modalForPic = document.getElementById('modalForPic');
@@ -86,20 +119,6 @@ export default function Profile() {
             modalForSession.style.display = "none";
         }
     }
-    
-    var modalForExit = document.getElementById('modalForExit');
-    window.addEventListener('click', clickOutsideModalExit); 
-    function displayExitModal() {
-        if (modalForExit.style.display == "none") {
-            modalForExit.style.display = "flex";
-        } else {
-            modalForExit.style.display="none"
-        }
-    } function clickOutsideModalExit(e){
-        if(e.target == modalForExit){
-            modalForExit.style.display = "none";
-        }
-    }
 
     var modalDeletePic = document.getElementById('modalDeletePic');
     window.addEventListener('click', clickOutsideModalExit); 
@@ -117,17 +136,15 @@ export default function Profile() {
 
     return (
         <div id='#userProfile_body'>
+            {msg.length > 2 ? <BlockMsg msg={msg}/> : newLocal}
             <div className='container blanco' id='perfilSection'>
                 <section className='col-sm-12 col-md-5 col-lg-6'>
-                    <p className='encabezadoSize blanco capitalize'>{userName} {userLastName}</p>
+                    <p className='encabezadoSize blanco capitalize'>{userName}</p>
                     <article onClick={displaylDeletePicModal}> 
                         <img src={userPic} id="imgProfile" alt="Foto de perfil" onError={userPicEliminado} /> {/*"src/img/" + userPic*/}
                         <button><BiTrash style={ {fill: "#121212", fontSize:"1.5rem",} }></BiTrash></button>
                     </article>
                     <button onClick={displayPicModal}className='btnVioletaRedondo'>Cambiar foto</button>
-                    <div>
-                        <button onClick={displayExitModal}>Cerrar sesión</button>
-                    </div>
                 </section>
 
                 <section className='col-sm-12 col-md-7 col-lg-6'>
@@ -137,22 +154,18 @@ export default function Profile() {
                         <fieldset>
                             <div>
                                 <label htmlFor="nombre">Nombre</label>
-                                <input type="text" className='capitalize' autoComplete='given-name' onChange={userNameSeleccionado} placeholder={userName} name="nombre" />
-                            </div>
-                            <div>
-                                <label htmlFor="apellido">Apellido</label>
-                                <input type="text" className='capitalize' autoComplete='family-name' onChange={userLastNameSeleccionado} placeholder={userLastName} name="apellido" />
+                                <input type="text" className='capitalize' autoComplete='name' onChange={(e) => setName(e.target.value)} placeholder={userName} name="nombre" />
                             </div>
                         </fieldset>
                         <h5>Cambiar contraseña:</h5>
                         <fieldset>
                             <div>
-                                <label htmlFor="pass">Nueva contraseña</label>
-                                <input type="password" autoComplete='on' minLength="6" name="new-password" />
+                                <label htmlFor="new-password">Nueva contraseña</label>
+                                <input onChange={(e) => setNewPassword(e.target.value)} type="password" autoComplete='off' minLength="6" name="new-password" />
                             </div>
                             <div>
-                                <label htmlFor="confirmPass">Confirmar contraseña</label>
-                                <input type="password" autoComplete='off' name="confirm_new-password" />
+                                <label htmlFor="confirm_new-password">Confirmar contraseña</label>
+                                <input onChange={(e) => setNewPasswordConfirm(e.target.value)} type="password" autoComplete='off' name="confirm_new-password" />
                             </div>
                         </fieldset>
                         <h5>Sus datos actuales:</h5>
@@ -163,10 +176,10 @@ export default function Profile() {
                             </div>
                             <div>
                                 <label htmlFor="pass">Contraseña actual</label>
-                                <input type="password" autoComplete='new-password' minLength="6" name="pass" />
+                                <input onChange={(e) => setPassword(e.target.value)} type="password" autoComplete='off' minLength="5" name="pass" />
                             </div>
                         </fieldset> 
-                        <button type="button" className="btnVioletaRedondo">Guardar cambios</button>{ /* onClick={updateUserData}*/}
+                        <button onClick={updateUserData} type="button" className="btnVioletaRedondo">Guardar cambios</button>
                     </form>
                 </section>
             </div>
@@ -174,18 +187,8 @@ export default function Profile() {
             <section id='modalForPic' className='modalOverlay'>
                 <article>
                     <div><button onClick={displayPicModal}><IoMdClose style={ {fill: "var(--white)", fontSize:"1.5rem",} }></IoMdClose></button></div>
-                    <label htmlFor="userPicture">Seleccioná una foto de perfil</label>
+                    <label htmlFor="userPicture">Seleccioná una foto de perfil(esto no es funcional)</label>
                     <input type="file" name="userPicture" accept="image/png, image/jpeg, image/jpg" onChange={userPicSeleccionado}/>
-                </article>
-            </section>
-            <section id='modalForExit' className='modalOverlay'>
-                <article>
-                    <div><button onClick={displayExitModal}><IoMdClose style={ {fill: "var(--white)", fontSize:"1.5rem",} }></IoMdClose></button></div>
-                    <p className='encabezadoModal'>¿Desea cerrar sesión?</p>
-                    <div>
-                        <button className='btnVioletaRedondo'>Sí, cerrar sesión</button>
-                        <button className='btnSecundario' onClick={displayExitModal}>Cancelar</button>
-                    </div>
                 </article>
             </section>
             <section id='modalDeletePic' className='modalOverlay'>
