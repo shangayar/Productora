@@ -81,7 +81,7 @@ export default function Profile() {
                 console.log('pass ' + password)
             client.query(
                 q.Replace(q.Ref(q.Collection('users'), userRef),
-                    { data: { name: userName, password: finalPass }, }, 
+                    { data: { name: userName, password: finalPass, email: userEmail }, }, 
                 )
             )
             .then((ret) => {
