@@ -64,8 +64,11 @@ const Formulario = () => {
               { data: { name: nameValidated, email: emailValidated, password: passwordValidated} }
             )
           )
-          .then((ret) => {console.log(ret);})
-          .then ( () =>{ 
+          .then((ret) => {
+            console.log(ret);
+            return ret;
+          })
+          .then ( (ret) =>{ 
             setMsg('Usuario creado exitosamente');
             setEmail("");
             setPassword("");
