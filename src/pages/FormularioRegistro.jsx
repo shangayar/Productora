@@ -24,6 +24,7 @@ const Formulario = () => {
       )
     )
     .then(allEmails => {
+      console.log(allEmails)
       arrayEmails=allEmails;
     })
     .catch(error => console.warn('error', error.message))
