@@ -31,8 +31,10 @@ const Formulario = () => {
 
   function handleSubmit(e) {
     getAllEmails();
-
-    let searchEmail = arrayEmails.data.find(i => i === email);
+    let searchEmail;
+    if (arrayEmails.data.find(i => i === email)) {
+      searchEmail = arrayEmails.data.find(i => i === email);
+    };
 
     e.preventDefault();
     if (email && password && name) {
