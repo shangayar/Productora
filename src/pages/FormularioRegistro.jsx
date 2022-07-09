@@ -66,14 +66,11 @@ const Formulario = () => {
           )
           .then((ret) => {
             console.log(ret);
-            return ret;
-          })
-          .then ( (ret) =>{ 
             setMsg('Usuario creado exitosamente');
             setEmail("");
             setPassword("");
             setName("");
-          } )
+          })
           .catch((err) => console.error(
             'Error: [%s] %s: %s',
             err.name,
