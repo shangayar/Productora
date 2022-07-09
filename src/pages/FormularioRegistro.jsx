@@ -11,7 +11,6 @@ const Formulario = () => {
   const newLocal = false; //for BlockMsg
 
   let arrayEmails = [];
-  getAllEmails();
 
   function getAllEmails(){
     client.query(
@@ -31,6 +30,8 @@ const Formulario = () => {
   }
 
   function handleSubmit(e) {
+    getAllEmails();
+
     let searchEmail = arrayEmails.data.find(i => i === email);
 
     e.preventDefault();
@@ -91,12 +92,14 @@ const Formulario = () => {
         Crea una cuenta en Productora+. Es gratis y solo te toma un minuto
       </p>
       <form>
-        <label className="font-weight-bold" /> Nombre para mostrar
-        <input className="text-dark rounded" onChange={(e) => setName(e.target.value)} name="name" value={name} type="text"></input>
-        <label className="font-weight-bold" /> Correo Electrónico
-        <input className="text-dark rounded" onChange={(e) => setEmail(e.target.value)} name="email" value={email} type="text"></input>
-        <label /> Contraseña
-        <input className="text-dark rounded" onChange={(e) => setPassword(e.target.value)} name="password" value={password} type="password"></input>
+        <label className="font-weight-bold"> Nombre para mostrar </label>
+        <input className="text-dark rounded" onChange={(e) => setName(e.target.value)} name="name" value={name} type="text"/>
+        
+        <label className="font-weight-bold"> Correo Electrónico </label>
+        <input className="text-dark rounded" onChange={(e) => setEmail(e.target.value)} name="email" value={email} type="email"/>
+        
+        <label  className="font-weight-bold"> Contraseña</label>
+        <input className="text-dark rounded" onChange={(e) => setPassword(e.target.value)} name="password" value={password} type="password"/>
       </form>
       <div className="div-button-log">
         <button onClick={handleSubmit} type="button" className="button-login">Registrarse</button>
