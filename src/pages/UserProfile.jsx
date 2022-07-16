@@ -77,7 +77,7 @@ export default function Profile() {
             console.log('no cambia')
         }
         if (password === userData.password && userEmail === userData.email ) {
-                setMsg('Los datos son correctos')
+                setMsg('Los datos fueron modificados correctamente')
                 console.log('pass ' + password)
             client.query(
                 q.Replace(q.Ref(q.Collection('users'), userRef),

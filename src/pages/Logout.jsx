@@ -11,7 +11,7 @@ function Logout() {
   
     function handleSubmit() {      
       setCookie("user", false, { path: "/" });
-      setMsg('Ha cerrado la sesión correctamente. Toca dos veces para cambiar el navbar');
+      setMsg('Ha cerrado la sesión correctamente.');
     }
 
   return (
