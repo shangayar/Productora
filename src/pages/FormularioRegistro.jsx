@@ -34,7 +34,7 @@ const Formulario = () => {
     getAllEmails();
     let searchEmail;
     console.log(arrayEmails)
-    if (arrayEmails.data.find(i => i === email) ) {
+    if (arrayEmails.find(i => i === email) ) {
       searchEmail = arrayEmails.data.find(i => i === email);
     } else {
       searchEmail = 'nothingFound';
