@@ -10,7 +10,7 @@ const Formulario = () => {
   const [msg, setMsg] = useState("");
   const newLocal = false; //for BlockMsg
 
-  let arrayEmails = [];
+  let arrayEmails = [''];
 
   function getAllEmails(){
     client.query(
@@ -34,15 +34,20 @@ const Formulario = () => {
     getAllEmails();
     let searchEmail;
     console.log(arrayEmails)
-    if (arrayEmails.data.find(i => i === email)) {
+    if (arrayEmails.data.find(i => i === email) ) {
       searchEmail = arrayEmails.data.find(i => i === email);
+    } else {
+      searchEmail = 'nothingFound';
     };
 
     e.preventDefault();
     if (email && password && name) {
       if (searchEmail === email) {
-        setMsg('Esa dirección de mail ya ha sido registrada')
+        setMsg('Esa dirección de mail ya ha sido registrada');
+        console.log(searchEmail);
+        return;
       } else {
+        console.log(searchEmail);
         const emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let emailValidated;
         let nameValidated;
@@ -51,16 +56,19 @@ const Formulario = () => {
           emailValidated=email;
         } else {
           setMsg('Ingrese un mail válido');
+          return;
         }
         if(password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
           passwordValidated=password;
         } else {
           setMsg('Ingrese una contraseña válida. Debe contener entre 6 y 20 caracteres, un número, una letra mayúscula y una minúscula');
+          return;
         }
         if(name.match(/^[a-zA-Z ]+$/)){
           nameValidated=name;
         } else {
           setMsg('El nombre sólo puede contener letras.');
+          return;
         }
         if (emailValidated && nameValidated && passwordValidated) {
           client.query(
@@ -86,6 +94,7 @@ const Formulario = () => {
       }
     } else {
       setMsg('Debe completar todos los campos correctamente!')
+      return;
     }
   }
 
